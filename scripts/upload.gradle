@@ -71,13 +71,6 @@ project.afterEvaluate {
                         url 'https://github.com/yandex-money/yandex-money-sdk-java.git'
                     }
 
-
-                    dependencies {
-                        compile 'com.squareup.okhttp:okhttp:1.6.0'
-                        compile 'com.google.code.gson:gson:2.3'
-                        compile 'joda-time:joda-time:2.5'
-                    }
-
                     developers {
                         developer {
                             name 'Yandex.Money'
