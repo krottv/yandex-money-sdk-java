@@ -81,6 +81,7 @@ project.afterEvaluate {
                         project.ext["signing.password"] = teamcity['signing.password']
                         project.ext["signing.secretKeyRingFile"] = teamcity['signing.secretKeyRingFile']
                         sign configurations.archives
+                        sign
                     }
                 } else {
                     task signArchives {
@@ -88,11 +89,12 @@ project.afterEvaluate {
                     }
                 }
 
-                if (isMavenCentralBuild) {
-                    beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-                }
+
 
                 if (isTeamcityBuild || isMavenCentralBuild) {
+                    if (isMavenCentralBuild) {
+                        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+                    }
                     project.ext['auth'] = { authentication(userName: teamcity['maven.username'], password: teamcity['maven.password']) }
                     repository(url: teamcity['maven.repository'], project.ext['auth'])
                     snapshotRepository(url: teamcity['maven.snapshotRepository'], project.ext['auth'])
